@@ -2,7 +2,11 @@ import { Note, StatsObject } from "../types/noteTypes";
 import { NoteBody } from "../types/ApiTypes";
 import NotFoundException from "../Exceptions/NotFoundException";
 import { getNotes, setNotes } from "../store/notes";
-import { countAllStats, makeTaskForCreation, makeTaskUpdate } from "../Services/taskService";
+import {
+    countAllStats,
+    makeTaskForCreation,
+    makeTaskUpdate,
+} from "../Services/taskService";
 
 const addNote = (note: NoteBody): Note => {
     let notes = getNotes();
@@ -19,13 +23,14 @@ const editNote = (id: number, note: Partial<NoteBody>): Note => {
     if (!noteToUpdate) {
         throw new NotFoundException("Not found");
     }
-
     makeTaskUpdate(noteToUpdate, note);
     setNotes(notes);
     return noteToUpdate;
 };
 const removeNote = (id: number) => {
     let notes = getNotes();
+    if (!notes.find((note) => note.id === id))
+        throw new NotFoundException("Not found");
     notes = notes.filter((note) => note.id !== id);
     setNotes(notes);
 };

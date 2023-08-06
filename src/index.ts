@@ -1,12 +1,11 @@
-import express, { Request, Response } from "express";
-// import * as cors from "cors"
+import express from "express";
 import noteRoutes from "./routes/noteRouter";
 import errorHandler from "./errorHandler";
-console.log(process.env.PORT);
+require("dotenv").config();
+
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 5000;
 const app = express();
 
-// app.use(cors())
 app.use(express.json());
 app.use("/notes", noteRoutes);
 app.use(errorHandler);

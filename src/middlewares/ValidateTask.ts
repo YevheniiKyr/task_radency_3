@@ -1,6 +1,5 @@
 import Joi, { ObjectSchema, ValidationError } from "joi";
 import { NextFunction, Request, Response } from "express";
-import { Category } from "../types/noteTypes";
 import ValidationException from "../Exceptions/ValidationException";
 
 export const ValidateTask = (schema: ObjectSchema) => {
