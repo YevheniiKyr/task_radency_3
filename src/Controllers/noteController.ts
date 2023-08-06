@@ -10,16 +10,17 @@ const createNote: RequestHandler<{ id: string }, {}, NoteBody> = (
     res: Response<Note | { [key: string]: string }>,
     next: NextFunction,
 ) => {
-    try {
-        const note: NoteBody = req.body;
-        let newNote: Note = addNote(note);
-        return res.status(201).json(newNote);
-    } catch (ex) {
-        if (ex instanceof Error) {
-            return res.status(500).json({ error: ex.message });
-        }
-        return res.status(500).json({ error: "An unknown error occurred." });
-    }
+    // try {
+    const note: NoteBody = req.body;
+    let newNote: Note = addNote(note);
+    return res.status(201).json(newNote);
+    // } catch (ex) {
+    //     return next(ex);
+    // if (ex instanceof Error) {
+    //     return res.status(500).json({ error: ex.message });
+    // }
+    // return res.status(500).json({ error: "An unknown error occurred." });
+    // }
 };
 
 const updateNote: RequestHandler<{ id: string }, {}, Partial<NoteBody>> = (
@@ -27,73 +28,83 @@ const updateNote: RequestHandler<{ id: string }, {}, Partial<NoteBody>> = (
     res: Response<Note | Message>,
     next: NextFunction,
 ) => {
-    try {
-        const note = req.body;
-        const id = parseInt(req.params.id);
-        let updatedNote: Note = editNote(id, note);
-        return res.status(201).json(updatedNote);
-    } catch (ex) {
-        if (ex instanceof NotFoundException) {
-            return res.status(404).json({ message: "Not found" });
-        }
-        if (ex instanceof Error) {
-            return res.status(500).json({ error: ex.message });
-        }
-        return res.status(500).json({ error: "An unknown error occurred." });
-    }
+    // try {
+    const note = req.body;
+    const id = parseInt(req.params.id);
+    let updatedNote: Note = editNote(id, note);
+    return res.status(201).json(updatedNote);
+    // } catch (ex) {
+    //     next(ex);
+
+    // if (ex instanceof NotFoundException) {
+    //     return res.status(404).json({ message: "Not found" });
+    // }
+    // if (ex instanceof Error) {
+    //     return res.status(500).json({ error: ex.message });
+    // }
+    // return res.status(500).json({ error: "An unknown error occurred." });
+    // }
 };
 
 const deleteNote: RequestHandler<{ id: string }, {}, {}> = (req, res: Response<Note | Message>, next: NextFunction) => {
-    try {
-        const id = parseInt(req.params.id);
-        removeNote(id);
-        return res.status(201).json({ message: `${id} deleted` });
-    } catch (ex) {
-        if (ex instanceof Error) {
-            return res.status(500).json({ error: ex.message });
-        }
-        return res.status(500).json({ error: "An unknown error occurred." });
-    }
+    // try {
+    const id = parseInt(req.params.id);
+    removeNote(id);
+    return res.status(201).json({ message: `${id} deleted` });
+    // } catch (ex) {
+    //     next(ex);
+
+    // if (ex instanceof Error) {
+    //     return res.status(500).json({ error: ex.message });
+    // }
+    // return res.status(500).json({ error: "An unknown error occurred." });
+    // }
 };
 
 const getNotes: RequestHandler<{}, {}, {}> = (req, res: Response<Note[] | Message>, next: NextFunction) => {
-    try {
-        let notes: Note[] = readNotes();
-        return res.status(200).json(notes);
-    } catch (ex) {
-        if (ex instanceof Error) {
-            return res.status(500).json({ error: ex.message });
-        }
-        return res.status(500).json({ error: "An unknown error occurred." });
-    }
+    // try {
+    let notes: Note[] = readNotes();
+    return res.status(200).json(notes);
+    // } catch (ex) {
+    //     next(ex);
+    //     // if (ex instanceof Error) {
+    //     //     return res.status(500).json({ error: ex.message });
+    //     // }
+    //     // return res.status(500).json({ error: "An unknown error occurred." });
+    // }
 };
 
 const getNote: RequestHandler<{ id: string }, {}, {}> = (req, res: Response<Note | Message>, next: NextFunction) => {
-    try {
-        const id = parseInt(req.params.id);
-        let note = getNoteById(id);
-        if (!note) {
-            return res.status(404).json({ message: "Not found" });
-        }
+    // try {
+    const id = parseInt(req.params.id);
+    let note = getNoteById(id);
+    if (!note) {
+        return res.status(404).json({ message: "Not found" });
+        // }
         return res.status(200).json(note);
-    } catch (ex) {
-        if (ex instanceof Error) {
-            return res.status(500).json({ error: ex.message });
-        }
-        return res.status(500).json({ error: "An unknown error occurred." });
+        // } catch (ex) {
+        //     next(ex);
+        //     // if (ex instanceof Error) {
+        //     //     return res.status(500).json({ error: ex.message });
+        //     // }
+        //     // return res.status(500).json({ error: "An unknown error occurred." });
+        // }
     }
 };
 
 const getStats: RequestHandler<{}, {}, {}> = (req, res: Response<StatsObject | Message>, next: NextFunction) => {
-    try {
-        const statsObject: StatsObject = countStats();
-        return res.status(200).json(statsObject);
-    } catch (ex) {
-        if (ex instanceof Error) {
-            return res.status(500).json({ error: ex.message });
-        }
-        return res.status(500).json({ error: "An unknown error occurred." });
-    }
+    // try {
+    const statsObject: StatsObject = countStats();
+    return res.status(200).json(statsObject);
+    // } catch (ex) {
+    //     next(ex);
+
+    // if (ex instanceof Error) {
+    //     return res.status(500).json({ error: ex.message });
+    // }
+    // return res.status(500).json({ error: "An unknown error occurred." });
+    // }
+    //
 };
 
 export default { createNote, getNote, getNotes, deleteNote, updateNote, getStats };

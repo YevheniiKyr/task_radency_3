@@ -5,7 +5,6 @@ class NotFoundException extends Error {
         super(message);
         this.name = "NotFoundError";
         this.status = 404;
-        // Object.setPrototypeOf(this, NotFoundException.prototype);
     }
 }
 
