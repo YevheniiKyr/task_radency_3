@@ -1,4 +1,4 @@
-export type Task = {
+export type Note = {
     id: number;
     name: string;
     createdAt: Date;

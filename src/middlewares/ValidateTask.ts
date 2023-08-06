@@ -1,6 +1,6 @@
 import Joi, { ObjectSchema } from "joi";
 import { NextFunction, Request, Response } from "express";
-import { Category } from "../types/taskTypes";
+import { Category } from "../types/noteTypes";
 
 export const ValidateTask = (schema: ObjectSchema) => {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -22,6 +22,13 @@ export const Schemas = {
             dates: Joi.array()
                 .items(Joi.string().regex(/\b(\d{1,2}\/\d{1,2}\/\d{4})\b/))
                 .required(),
+            archived: Joi.boolean().required(),
+        }),
+        update: Joi.object({
+            name: Joi.string().min(1),
+            category: Joi.string().valid("Task", "Random Thought", "Idea"),
+            content: Joi.string().min(1),
+            dates: Joi.array().items(Joi.string().regex(/\b(\d{1,2}\/\d{1,2}\/\d{4})\b/)),
             archived: Joi.boolean(),
         }),
     },

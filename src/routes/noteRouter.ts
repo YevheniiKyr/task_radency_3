@@ -8,6 +8,6 @@ router.post("/", ValidateTask(Schemas.task.create), controller.createNote);
 router.get("/stats", controller.getStats);
 router.get("/:id", controller.getNote);
 router.get("/", controller.getNotes);
-router.patch("/:id", ValidateTask(Schemas.task.create), controller.updateNote);
+router.patch("/:id", ValidateTask(Schemas.task.update), controller.updateNote);
 router.delete("/:id", controller.deleteNote);
 export = router;

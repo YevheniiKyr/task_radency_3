@@ -1,6 +1,6 @@
-import { Task } from "../types/taskTypes";
+import { Note } from "../types/noteTypes";
 
-export let notes: Task[] = [
+export let notes: Note[] = [
     {
         name: "djdjdjd",
         id: 1,
@@ -65,3 +65,9 @@ export let notes: Task[] = [
         archived: true,
     },
 ];
+
+export const getNotes = (): Note[] => notes;
+
+export const setNotes = (newNotes: Note[]): void => {
+    notes = newNotes;
+};
